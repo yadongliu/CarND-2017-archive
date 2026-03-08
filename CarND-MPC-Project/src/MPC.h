@@ -6,37 +6,21 @@
 
 using namespace std;
 
-const size_t N = 12;
-const double dt = 0.05;
-const int latency_ind = 2; //latency  in units of dt (100ms)
-
-struct Solution {
-
-		vector<double> X;
-		vector<double> Y;
-		vector<double> Psi;
-		vector<double> V;
-		vector<double> Cte;
-		vector<double> EPsi;
-		vector<double> Delta;
-		vector<double> A;
-};
-
 class MPC {
  public:
   MPC();
 
   virtual ~MPC();
 
+  Eigen::VectorXd GetState(Eigen::VectorXd coeffs, double v, double steering_angle, double throttle);
+
   // Solve the model given an initial state and polynomial coefficients.
   // Return the first actuatotions.
-  //vector<double> Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs);
-  Solution Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs);
+  vector<double> Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs);
 
-  double delta_prev {0};
-  double a_prev {0.1};
-
+  // Predicted state vector (x, y) by mpc
+  vector<double> mpc_x;
+  vector<double> mpc_y;
 };
-
 
 #endif /* MPC_H */
