@@ -185,7 +185,15 @@ class TLDetector(object):
         cv_image = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
 
         # Get classification
-        return self.light_classifier.get_classification(cv_image)
+        # return self.light_classifier.get_classification(cv_image)
+        start_time = rospy.get_time()
+        light_state = self.light_classifier.get_classification(cv_image)
+        rospy.loginfo(
+                "### Light Classification Result: state=%d seq=%d in %.2fs ###",
+                light_state, self.camera_image.header.seq,
+                rospy.get_time() - start_time)
+
+        return light_state
 
     def process_traffic_lights(self):
         """Finds closest visible traffic light, if one exists, and determines its
