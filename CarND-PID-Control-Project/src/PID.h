@@ -1,6 +1,8 @@
 #ifndef PID_H
 #define PID_H
 
+#include <vector>
+
 class PID {
 public:
   /*
@@ -10,12 +12,26 @@ public:
   double i_error;
   double d_error;
 
+  double pre_cte;
+  double sum_cte;
+
+  // for twiddle
+  int n_twiddle;
+  bool twiddle_initialized; 
+  int time_steps;
+  double error; 
+  double best_err; 
+  std::vector<double> dp;
+  bool skip_once;
+
   /*
-  * Coefficients
+  * Coefficients: use vector for its ease of use in Twiddle
   */ 
-  double Kp;
-  double Ki;
-  double Kd;
+  std::vector<double> K;
+
+  //double Kp;
+  //double Ki;
+  //double Kd;
 
   /*
   * Constructor
@@ -32,6 +48,8 @@ public:
   */
   void Init(double Kp, double Ki, double Kd);
 
+  void Reset();
+
   /*
   * Update the PID error variables given cross track error.
   */
@@ -41,6 +59,12 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  /*
+  * Calculate the total PID error.
+  */
+  void Twiddle();
+
 };
 
 #endif /* PID_H */
