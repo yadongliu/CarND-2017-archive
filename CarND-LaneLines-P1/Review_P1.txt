@@ -1,0 +1,36 @@
+Hello,
+
+Good work overall, you did a good job with your pipeline, Keep this up :smile:
+Congratulations, on meeting all of the specifications and good luck with your Self Driving Car Nanodegree. :smile:
+
+Well done providing an annotated output video!
+
+Your pipeline is pretty good, with resulting lines right on target.
+
+The left and right lane lines are accurately annotated throughout most of the video. Well done!!
+
+Your parameters looks good, yet you may try one optimal possible set of parameters which might not create much difference your current output but will be helpful in certain conditions like curved lanes, shadows etc.
+
+max_line_gap that defines the maximum distance between segments that will be connected to a single line.
+
+min_line_len that defines the minimum length of a line that will be created.
+
+Increasing min_line_lenand max_line_gap(~100 and above) for Hough Transform will make your lines longer and will have less number of breaks.(this will make the solid annotated line longer in the output)Increasing max_line_gap will allow points that are farther away from each other to be connected with a single line.
+
+threshold increasing(~ 50-60) will rule out the spurious lines.(defines the minimum number of intersections in a given grid cell that are required to choose a line.)
+
+Decreasing the kernel-size in the Gaussian Filter might also help, as this will remove the noise making the image
+Consider using rho value of 2
+
+Reflection:
+
+Since the algorithm is "trained" on a very specific road and light conditions when these conditions change we can expect that the algorithm performance will degrade.
+You should have added some shortcoming where the algorithm might fail or what factors can affect the pipeline, let me add this for you:
+
+Shadows on the lanes
+Curved lanes
+Missing/faded lane line
+Color of the lane line
+Uphill/downhill
+
+
